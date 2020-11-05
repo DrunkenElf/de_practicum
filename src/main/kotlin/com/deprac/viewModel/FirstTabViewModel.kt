@@ -4,10 +4,12 @@ import com.deprac.FirstTabEvent
 import javafx.scene.chart.XYChart
 import tornadofx.*
 
-/*
-* approx can contain all method
-* lte - all except EXACT
-* */
+/**
+ *
+ * @property _approx ObservableList<Series<Number, Number>>
+ * @property _lte ObservableList<Series<Number, Number>>
+ * @property _gte ObservableList<Series<Number, Number>>
+ */
 class FirstTabViewModel: ViewModel(){
 
     val _approx = mutableListOf<XYChart.Series<Number, Number>>().asObservable()

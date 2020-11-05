@@ -2,14 +2,16 @@ package com.deprac.viewModel
 
 import com.deprac.SecondTabEvent
 import javafx.scene.chart.XYChart
-import tornadofx.ViewModel
 import tornadofx.*
 
+/**
+ *
+ * @property gte ObservableList<Series<Number, Number>>
+ * @property lte ObservableList<Series<Number, Number>>
+ */
 class SecondTabViewModel : ViewModel() {
-
     val gte = mutableListOf<XYChart.Series<Number, Number>>().asObservable()
     val lte = mutableListOf<XYChart.Series<Number, Number>>().asObservable()
-
 
     init {
         subscribe<SecondTabEvent> {

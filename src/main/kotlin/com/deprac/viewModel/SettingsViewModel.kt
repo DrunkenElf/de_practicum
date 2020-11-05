@@ -5,6 +5,15 @@ import com.deprac.SecondTabEvent
 import com.deprac.model.*
 import tornadofx.*
 
+/**
+ *
+ * @property x_0 SimpleDoubleProperty
+ * @property y_0 SimpleDoubleProperty
+ * @property x_max SimpleDoubleProperty
+ * @property N SimpleIntegerProperty
+ * @property n_min SimpleIntegerProperty
+ * @property n_max SimpleIntegerProperty
+ */
 class SettingsViewModel : ItemViewModel<SettingsModel>() {
     val x_0 = bind(SettingsModel::x_0_prop)
     val y_0 = bind(SettingsModel::y_0_prop)
@@ -15,7 +24,6 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
 
 
     fun onClick() {
-
         val exact = ExactMethod(x_0.value, y_0.value, x_max.value, N.value)
         val euler = EulerMethod(x_0.value, y_0.value, x_max.value, N.value)
         val impEuler = ImprovedEulerMethod(x_0.value, y_0.value, x_max.value, N.value)
@@ -23,7 +31,7 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
 
         val methods = listOf(euler, impEuler, runge)
 
-        val firstTabEvent = FirstTabEvent(
+        fire(FirstTabEvent(
                 approx = methods.map {
                     ChartPlot(
                             name = it.name,
@@ -42,15 +50,13 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                             points = Grid(getXs(it.x0, it.x_max, it.N), it.globalErrors(exact.solve().y)).toPlot(),
                     )
                 }
-        )
-        fire(firstTabEvent)
-
+        ))
         val ns = mutableListOf<Int>().also {
             for (i in n_min.value..n_max.value) {
                 it.add(i)
             }
         }
-        val secondTabEvent = SecondTabEvent(
+        fire(SecondTabEvent(
                 gte = methods.map {
                     ChartPlot(
                             name = it.name,
@@ -58,7 +64,7 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                                     ns.map { it.toDouble() },
                                     ns.map { index ->
                                         it.apply { _n = index }
-                                                .globalErrors(exact.apply { _n = index }.solve().y).max()!!
+                                                .globalErrors(exact.apply { _n = index }.solve().y).maxOrNull()!!
                                     }).toPlot()
                     )
                 },
@@ -69,11 +75,11 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                                     ns.map { it.toDouble() },
                                     ns.map { index ->
                                         it.apply { _n = index }
-                                                .localErrors(exact.apply { _n = index }.solve().y).max()!!
+                                                .localErrors(exact.apply { _n = index }.solve().y).maxOrNull()!!
                                     }).toPlot()
                     )
                 },
-        )
-        fire(secondTabEvent)
+        ))
+
     }
 }

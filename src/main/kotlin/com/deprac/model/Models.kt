@@ -38,6 +38,7 @@ val func: (Double) -> Double = { x -> -2*x + 1 }
 val constMult: (Double) -> Double = { x -> exp(x) }
 val deriv: (Double, Double) -> Double = { x, y -> 2*x + y - 3 }
 
+
 class ExactMethod(
     _x0: Double,
     _y0: Double,

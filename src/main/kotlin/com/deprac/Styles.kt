@@ -1,10 +1,7 @@
 package com.deprac
 
 import javafx.scene.text.FontWeight
-import tornadofx.Stylesheet
-import tornadofx.box
-import tornadofx.cssclass
-import tornadofx.px
+import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
@@ -17,11 +14,15 @@ class Styles : Stylesheet() {
             fontSize = 20.px
             fontWeight = FontWeight.BOLD
         }
-        tabPane{
+        tabPane {
             padding = box(1.px, 1.px, 0.px, 1.px)
         }
-        tab{
+        tab {
             prefWidth = 490.px
         }
+        tabContentArea {
+            prefHeight = 800.px
+        }
+
     }
 }

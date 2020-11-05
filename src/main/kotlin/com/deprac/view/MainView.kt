@@ -1,14 +1,17 @@
 package com.deprac.view
 
-import com.deprac.viewModel.FirstTabViewModel
 import com.deprac.viewModel.SettingsViewModel
-import javafx.scene.control.ToggleGroup
 import tornadofx.*
 
+/**
+ *
+ * @property settingsPanel SettingsPanel
+ * @property tabsPanel TabsPanel
+ * @property root BorderPane
+ */
 class MainView : View("De_Practicum") {
     private val settingsPanel: SettingsPanel by inject()
     private val tabsPanel: TabsPanel by inject()
-
 
     override val root = borderpane {
         left = tabsPanel.root
@@ -23,21 +26,17 @@ class TabsPanel: View(){
     override val root = tabpane {
         useMaxWidth = true
 
-        tab("Solutions"){
+        tab("Solutions") {
             add(firstTab)
         }
-        tab("GTE"){
+        tab("Convergence") {
             add(secondTab)
         }
     }
-
 }
 
 class SettingsPanel: View(){
     val model: SettingsViewModel by inject()
-    val firstTabViewModel: FirstTabViewModel by inject()
-
-    private val toggleGroup = ToggleGroup()
 
     override val root = form{
         fieldset("Properties"){
