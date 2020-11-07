@@ -127,32 +127,24 @@ open class NumMethod(_x0: Double, _y0: Double, _x_max: Double, _N: Int) : Method
 
 class EulerMethod(_x0: Double, _y0: Double, _x_max: Double, _N: Int)
     : NumMethod(_x0, _y0, _x_max, _N) {
-
     override val name: String
         get() = "Euler"
 
-    override fun step(x: Double, y: Double): Double {
-        return y + h * deriv(x, y)
-    }
+    override fun step(x: Double, y: Double) =
+            y + h * deriv(x, y)
 }
-
 class ImprovedEulerMethod(_x0: Double, _y0: Double, _x_max: Double, _N: Int)
     : NumMethod(_x0, _y0, _x_max, _N) {
-
     override val name: String
         get() = "EulerImproved"
 
-    override fun step(x: Double, y: Double): Double {
-        return y + h * (deriv(x, y) + deriv(x + h, ownStep(x, y))) / 2
-    }
+    override fun step(x: Double, y: Double) =
+            y + h * (deriv(x, y) + deriv(x + h, ownStep(x, y))) / 2
 
-    private fun ownStep(x: Double, y: Double) =
-            y + h * deriv(x, y)
+    private fun ownStep(x: Double, y: Double) = y + h * deriv(x, y)
 }
-
 class RungeKuttaMethod(_x0: Double, _y0: Double, _x_max: Double, _N: Int)
     : NumMethod(_x0, _y0, _x_max, _N) {
-
     private fun k1(x: Double, y: Double) = deriv(x, y)
     private fun k2(x: Double, y: Double) = deriv(x + h / 2, y + h * k1(x, y) / 2)
     private fun k3(x: Double, y: Double) = deriv(x + h / 2, y + h * k2(x, y) / 2)

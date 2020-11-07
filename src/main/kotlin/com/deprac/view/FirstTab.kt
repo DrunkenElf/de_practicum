@@ -5,7 +5,7 @@ import javafx.scene.chart.NumberAxis
 import tornadofx.*
 
 /**
- * First tab of our tabspanel which draws 3 linecharts
+ * First tab of our tabspanel which draws 2 linecharts
  *
  * @property model FirstTabViewModel
  * @property root VBox
@@ -18,17 +18,14 @@ class FirstTab : View() {
         linechart("Methods", NumberAxis().apply { label = "x" },
                 NumberAxis().apply { label = "y" }) {
             createSymbols = false
+            prefHeight = 450.0
             data = model._approx
         }
         linechart("LTE", NumberAxis().apply { label = "x" },
                 NumberAxis().apply { label = "lte" }) {
             createSymbols = false
+            prefHeight = 450.0
             data = model._lte
-        }
-        linechart("GTE", NumberAxis().apply { label = "x" },
-                NumberAxis().apply { label = "gte" }) {
-            createSymbols = false
-            data = model._gte
         }
     }
 }
