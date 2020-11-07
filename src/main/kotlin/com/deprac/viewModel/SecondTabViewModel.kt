@@ -5,6 +5,8 @@ import javafx.scene.chart.XYChart
 import tornadofx.*
 
 /**
+ * ViewModel for SecondTab
+ * Responsible for updating charts
  *
  * @property gte ObservableList<Series<Number, Number>>
  * @property lte ObservableList<Series<Number, Number>>
@@ -14,6 +16,7 @@ class SecondTabViewModel : ViewModel() {
     val lte = mutableListOf<XYChart.Series<Number, Number>>().asObservable()
 
     init {
+        // Subscribe to SecondTabEvent and update data on receive
         subscribe<SecondTabEvent> {
             with(lte){
                 clear()

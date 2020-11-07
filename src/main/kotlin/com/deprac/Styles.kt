@@ -21,7 +21,7 @@ class Styles : Stylesheet() {
             prefWidth = 490.px
         }
         tabContentArea {
-            prefHeight = 800.px
+            prefHeight = 900.px
         }
 
     }

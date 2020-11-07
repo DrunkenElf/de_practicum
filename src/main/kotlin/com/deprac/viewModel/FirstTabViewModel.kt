@@ -5,6 +5,9 @@ import javafx.scene.chart.XYChart
 import tornadofx.*
 
 /**
+ * ViewModel for FirsTab
+ * It receives computed data from FirsTabEvent and update charts
+ *
  *
  * @property _approx ObservableList<Series<Number, Number>>
  * @property _lte ObservableList<Series<Number, Number>>
@@ -18,6 +21,7 @@ class FirstTabViewModel: ViewModel(){
 
 
     init {
+        // Subscribes to FirstTabEvent and update charts on receive
         subscribe<FirstTabEvent> {
             with(_approx){
                 clear()

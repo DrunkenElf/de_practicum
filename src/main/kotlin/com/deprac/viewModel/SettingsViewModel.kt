@@ -6,6 +6,11 @@ import com.deprac.model.*
 import tornadofx.*
 
 /**
+ * ViewModel for SettingsPanel
+ *
+ * Responsible for computing and sending data to
+ * @see FirstTabViewModel
+ * @see SecondTabViewModel
  *
  * @property x_0 SimpleDoubleProperty
  * @property y_0 SimpleDoubleProperty
@@ -22,7 +27,6 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
     val n_min = bind(SettingsModel::n_min_prop)
     val n_max = bind(SettingsModel::n_max_prop)
 
-
     fun onClick() {
         val exact = ExactMethod(x_0.value, y_0.value, x_max.value, N.value)
         val euler = EulerMethod(x_0.value, y_0.value, x_max.value, N.value)
@@ -31,6 +35,7 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
 
         val methods = listOf(euler, impEuler, runge)
 
+        // fires Event to update data in FirstTab
         fire(FirstTabEvent(
                 approx = methods.map {
                     ChartPlot(
@@ -41,13 +46,15 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                 lte = methods.map {
                     ChartPlot(
                             name = it.name,
-                            points = Grid(getXs(it.x0, it.x_max, it.N), it.localErrors(exact.solve().y)).toPlot(),
+                            points = Grid(getXs(it.x0, it.x_max, it.N), it.localErrors(exact.solve().y))
+                                    .toPlot(),
                     )
                 },
                 gte = methods.map {
                     ChartPlot(
                             name = it.name,
-                            points = Grid(getXs(it.x0, it.x_max, it.N), it.globalErrors(exact.solve().y)).toPlot(),
+                            points = Grid(getXs(it.x0, it.x_max, it.N), it.globalErrors(exact.solve().y))
+                                    .toPlot(),
                     )
                 }
         ))
@@ -56,6 +63,7 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                 it.add(i)
             }
         }
+        // Fires Event to change data in SecondTab
         fire(SecondTabEvent(
                 gte = methods.map {
                     ChartPlot(
@@ -64,7 +72,8 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                                     ns.map { it.toDouble() },
                                     ns.map { index ->
                                         it.apply { _n = index }
-                                                .globalErrors(exact.apply { _n = index }.solve().y).maxOrNull()!!
+                                                .globalErrors(exact.apply { _n = index }.solve().y)
+                                                .maxOrNull()!!
                                     }).toPlot()
                     )
                 },
@@ -75,11 +84,11 @@ class SettingsViewModel : ItemViewModel<SettingsModel>() {
                                     ns.map { it.toDouble() },
                                     ns.map { index ->
                                         it.apply { _n = index }
-                                                .localErrors(exact.apply { _n = index }.solve().y).maxOrNull()!!
+                                                .localErrors(exact.apply { _n = index }.solve().y)
+                                                .maxOrNull()!!
                                     }).toPlot()
                     )
                 },
         ))
-
     }
 }

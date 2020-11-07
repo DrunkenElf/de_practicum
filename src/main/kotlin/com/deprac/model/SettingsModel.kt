@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.SimpleIntegerProperty
 
 /**
+ * Model for SettingsViewModel
  *
  * @property x_0_prop SimpleDoubleProperty
  * @property y_0_prop SimpleDoubleProperty
